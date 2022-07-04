@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        .mainDiv {
+            margin-top: 10%;
+            margin-left: 40%;
+        }
+
+        .boxs {
+            width: 70px;
+            height: 70px;
+            border: 1px solid black;
+            text-align: center;
+
+        }
+
+        .zero_cross {
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 2rem;
+        }
+        .cnter{
+            padding: 20px;
+            border-radius: 20px ;
+            background-color: aqua;
+            border: 1px solid aqua;
+            margin-top: 10%;
+            margin-left: 47%;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Tic Tac Toe</h2>
+    <h3 style="text-align: center;color: blue;">First Player as X and Second Player as O</h3>
+    <h3 style="text-align: center;color: red;" id="winningAnnouncement"></h3>
+    <div style="width: 100%;height: 100%;">
+        <div class="mainDiv">
+            <table>
+                <tr>
+                    <td>
+                        <div onclick="myFunc1()" id="cel1" class="boxs">
+                            <p class="zero_cross" id="box1"></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div onclick="myFunc2()" id="cel2" class="boxs">
+                            <p class="zero_cross" id="box2"></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div onclick="myFunc3()" id="cel3" class="boxs">
+                            <p class="zero_cross" id="box3"></p>
+                        </div>
+                    </td>
+                </tr>
+    
+                <tr>
+                    <td>
+                        <div onclick="myFunc4()" id="cel4" class="boxs">
+                            <p class="zero_cross" id="box4"></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div onclick="myFunc5()" id="cel5" class="boxs">
+                            <p class="zero_cross" id="box5"></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div onclick="myFunc6()" id="cel6" class="boxs">
+                            <p class="zero_cross" id="box6"></p>
+                        </div>
+                    </td>
+                </tr>
+    
+                <tr>
+                    <td>
+                        <div onclick="myFunc7()" id="cel7" class="boxs">
+                            <p class="zero_cross" id="box7"></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div onclick="myFunc8()" id="cel8" class="boxs">
+                            <p class="zero_cross" id="box8"></p>
+                        </div>
+                    </td>
+                    <td>
+                        <div onclick="myFunc9()" id="cel9" class="boxs">
+                            <p class="zero_cross" id="box9"></p>
+                        </div>
+                    </td>
+                </tr>
+    
+            </table>
+        </div>
+        <button id="resetbtn" onclick="reset()" class="cnter" type="reset" >Reset</button>
+    </div>
+    <script>
+        v = 'O';
+        a = [];
+        a['x'] = [];
+        a['o'] = [];
+        win = [[1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+        [1, 4, 7],
+        [2, 5, 8],
+        [3, 6, 9],
+        [1, 5, 9],
+        [3, 5, 7],];
+        function choose() {
+            var choice = document.getElementById("selectchoice");
+            var selectedText = choice.options[choice.selectedIndex].text;
+            if (selectedText == 'O') {
+                v = selectedText;
+            }
+            if (selectedText == 'X') {
+                v = selectedText;
+            }
+
+        }
+        function reset(){
+            window.location = 'index.html';
+        }
+        function setsAreEqual(a, b) {
+            if (a.size !== b.size) {
+                return false;
+            }
+
+            return Array.from(a).every(element => {
+                return b.has(element);
+            });
+        }
+        function winnerX() {
+            l = a['x'].length;
+            ax1 = [];
+            ax2 = [];
+            ax3 = [];
+
+            for (let i = 0; i < 3; i++) {
+                ax1.push(a['x'][i]);
+            }
+            for (let i = 1; i < 4; i++) {
+                ax2.push(a['x'][i]);
+            }
+            for (let i = 2; i < l; i++) {
+                ax3.push(a['x'][i]);
+            }
+            m = new Set(ax1.sort());
+            m1 = new Set(ax1.sort());
+            n = new Set(ax2.sort());
+            n1 = new Set(ax2);
+            p = new Set(ax3.sort());
+            p1 = new Set(ax3);
+            console.log(m);
+            console.log(n);
+            console.log(p);
+
+            console.log(m1);
+            console.log(n1);
+            console.log(p1);
+            if(l>=5)
+            {
+                document.getElementById('winningAnnouncement').innerHTML = "Draw match!!"
+                    document.getElementById("cel1").style.pointerEvents = 'none';
+                    document.getElementById("cel2").style.pointerEvents = 'none';
+                    document.getElementById("cel3").style.pointerEvents = 'none';
+                    document.getElementById("cel4").style.pointerEvents = 'none';
+                    document.getElementById("cel5").style.pointerEvents = 'none';
+                    document.getElementById("cel6").style.pointerEvents = 'none';
+                    document.getElementById("cel7").style.pointerEvents = 'none';
+                    document.getElementById("cel8").style.pointerEvents = 'none';
+                    document.getElementById("cel9").style.pointerEvents = 'none';
+            }
+            win.forEach(element => {
+                k = new Set(element);
+                if (setsAreEqual(k, p1)) {
+                    alert("X Win!!!");
+                    document.getElementById('winningAnnouncement').innerHTML = "Player X win!!!"
+                    document.getElementById("cel1").style.pointerEvents = 'none';
+                    document.getElementById("cel2").style.pointerEvents = 'none';
+                    document.getElementById("cel3").style.pointerEvents = 'none';
+                    document.getElementById("cel4").style.pointerEvents = 'none';
+                    document.getElementById("cel5").style.pointerEvents = 'none';
+                    document.getElementById("cel6").style.pointerEvents = 'none';
+                    document.getElementById("cel7").style.pointerEvents = 'none';
+                    document.getElementById("cel8").style.pointerEvents = 'none';
+                    document.getElementById("cel9").style.pointerEvents = 'none';
+
+
+                }
+                else if (setsAreEqual(k, n1)) {
+                    alert("X Win!!!");
+                    document.getElementById('winningAnnouncement').innerHTML = "Player X win!!!"
+                    document.getElementById("cel1").style.pointerEvents = 'none';
+                    document.getElementById("cel2").style.pointerEvents = 'none';
+                    document.getElementById("cel3").style.pointerEvents = 'none';
+                    document.getElementById("cel4").style.pointerEvents = 'none';
+                    document.getElementById("cel5").style.pointerEvents = 'none';
+                    document.getElementById("cel6").style.pointerEvents = 'none';
+                    document.getElementById("cel7").style.pointerEvents = 'none';
+                    document.getElementById("cel8").style.pointerEvents = 'none';
+                    document.getElementById("cel9").style.pointerEvents = 'none';
+
+
+                }
+                else if (setsAreEqual(k, m1)) {
+                    alert("X Win!!!");
+                    document.getElementById('winningAnnouncement').innerHTML = "Player X win!!!"
+                    document.getElementById("cel1").style.pointerEvents = 'none';
+                    document.getElementById("cel2").style.pointerEvents = 'none';
+                    document.getElementById("cel3").style.pointerEvents = 'none';
+                    document.getElementById("cel4").style.pointerEvents = 'none';
+                    document.getElementById("cel5").style.pointerEvents = 'none';
+                    document.getElementById("cel6").style.pointerEvents = 'none';
+                    document.getElementById("cel7").style.pointerEvents = 'none';
+                    document.getElementById("cel8").style.pointerEvents = 'none';
+                    document.getElementById("cel9").style.pointerEvents = 'none';
+
+
+                }
+                else if (setsAreEqual(k, m)) {
+                    alert("X Win!!!");
+                    document.getElementById('winningAnnouncement').innerHTML = "Player X win!!!"
+                    document.getElementById("cel1").style.pointerEvents = 'none';
+                    document.getElementById("cel2").style.pointerEvents = 'none';
+                    document.getElementById("cel3").style.pointerEvents = 'none';
+                    document.getElementById("cel4").style.pointerEvents = 'none';
+                    document.getElementById("cel5").style.pointerEvents = 'none';
+                    document.getElementById("cel6").style.pointerEvents = 'none';
+                    document.getElementById("cel7").style.pointerEvents = 'none';
+                    document.getElementById("cel8").style.pointerEvents = 'none';
+                    document.getElementById("cel9").style.pointerEvents = 'none';
+
+
+                }
+                else if (setsAreEqual(k, n)) {
+                    document.getElementById('winningAnnouncement').innerHTML = "Player X win!!!"
+                    alert("X Win!!!");
+                    document.getElementById("cel1").style.pointerEvents = 'none';
+                    document.getElementById("cel2").style.pointerEvents = 'none';
+                    document.getElementById("cel3").style.pointerEvents = 'none';
+                    document.getElementById("cel4").style.pointerEvents = 'none';
+                    document.getElementById("cel5").style.pointerEvents = 'none';
+                    document.getElementById("cel6").style.pointerEvents = 'none';
+                    document.getElementById("cel7").style.pointerEvents = 'none';
+                    document.getElementById("cel8").style.pointerEvents = 'none';
+                    document.getElementById("cel9").style.pointerEvents = 'none';
+                }
+                else if (setsAreEqual(k, p)) {
+                    alert("X Win!!!");
+                    document.getElementById('winningAnnouncement').innerHTML = "Player X win!!!"
+                    document.getElementById("cel1").style.pointerEvents = 'none';
+                    document.getElementById("cel2").style.pointerEvents = 'none';
+                    document.getElementById("cel3").style.pointerEvents = 'none';
+                    document.getElementById("cel4").style.pointerEvents = 'none';
+                    document.getElementById("cel5").style.pointerEvents = 'none';
+                    document.getElementById("cel6").style.pointerEvents = 'none';
+                    document.getElementById("cel7").style.pointerEvents = 'none';
+                    document.getElementById("cel8").style.pointerEvents = 'none';
+                    document.getElementById("cel9").style.pointerEvents = 'none';
+                }
+
+            });
+
+        }
+        function winnerO() {
+            q = a['o'].length;
+            ao1 = [];
+            ao2 = [];
+            ao3 = [];
+            for (let i = 0; i < 3; i++) {
+                ao1.push(a['o'][i]);
+            }
+            for (let i = 1; i < 4; i++) {
+                ao2.push(a['o'][i]);
+            }
+            for (let i = 2; i < q; i++) {
+                ao3.push(a['o'][i]);
+            }
+            m1 = new Set(ao1.sort());
+            m2 = new Set(ao1);
+            n1 = new Set(ao2.sort());
+            n2 = new Set(ao2);
+            p1 = new Set(ao3.sort());
+            p2 = new Set(ao3);
+            console.log(m1);
+            console.log(n1);
+            console.log(p1);
+            if(q>=5)
+            {
+                document.getElementById('winningAnnouncement').innerHTML = "Draw match!!"
+                    document.getElementById("cel1").style.pointerEvents = 'none';
+                    document.getElementById("cel2").style.pointerEvents = 'none';
+                    document.getElementById("cel3").style.pointerEvents = 'none';
+                    document.getElementById("cel4").style.pointerEvents = 'none';
+                    document.getElementById("cel5").style.pointerEvents = 'none';
+                    document.getElementById("cel6").style.pointerEvents = 'none';
+                    document.getElementById("cel7").style.pointerEvents = 'none';
+                    document.getElementById("cel8").style.pointerEvents = 'none';
+                    document.getElementById("cel9").style.pointerEvents = 'none';
+            }
+            win.forEach(element => {
+                k1 = new Set(element);
+                if (setsAreEqual(k1, p2)) {
+                    alert("O Win!!!");
+                    document.getElementById('winningAnnouncement').innerHTML = "Player O win!!!"
+                    document.getElementById("cel1").style.pointerEvents = 'none';
+                    document.getElementById("cel2").style.pointerEvents = 'none';
+                    document.getElementById("cel3").style.pointerEvents = 'none';
+                    document.getElementById("cel4").style.pointerEvents = 'none';
+                    document.getElementById("cel5").style.pointerEvents = 'none';
+                    document.getElementById("cel6").style.pointerEvents = 'none';
+                    document.getElementById("cel7").style.pointerEvents = 'none';
+                    document.getElementById("cel8").style.pointerEvents = 'none';
+                    document.getElementById("cel9").style.pointerEvents = 'none';
+                }
+                else if (setsAreEqual(k1, n2)) {
+                    alert("O Win!!!");
+                    document.getElementById('winningAnnouncement').innerHTML = "Player O win!!!"
+                    document.getElementById("cel1").style.pointerEvents = 'none';
+                    document.getElementById("cel2").style.pointerEvents = 'none';
+                    document.getElementById("cel3").style.pointerEvents = 'none';
+                    document.getElementById("cel4").style.pointerEvents = 'none';
+                    document.getElementById("cel5").style.pointerEvents = 'none';
+                    document.getElementById("cel6").style.pointerEvents = 'none';
+                    document.getElementById("cel7").style.pointerEvents = 'none';
+                    document.getElementById("cel8").style.pointerEvents = 'none';
+                    document.getElementById("cel9").style.pointerEvents = 'none';
+                }
+                else if (setsAreEqual(k1, m2)) {
+                    alert("O Win!!!");
+                    document.getElementById('winningAnnouncement').innerHTML = "Player O win!!!"
+                    document.getElementById("cel1").style.pointerEvents = 'none';
+                    document.getElementById("cel2").style.pointerEvents = 'none';
+                    document.getElementById("cel3").style.pointerEvents = 'none';
+                    document.getElementById("cel4").style.pointerEvents = 'none';
+                    document.getElementById("cel5").style.pointerEvents = 'none';
+                    document.getElementById("cel6").style.pointerEvents = 'none';
+                    document.getElementById("cel7").style.pointerEvents = 'none';
+                    document.getElementById("cel8").style.pointerEvents = 'none';
+                    document.getElementById("cel9").style.pointerEvents = 'none';
+                }
+                else if (setsAreEqual(k1, m1)) {
+                    alert("O Win!!!");
+                    document.getElementById('winningAnnouncement').innerHTML = "Player O win!!!"
+                    document.getElementById("cel1").style.pointerEvents = 'none';
+                    document.getElementById("cel2").style.pointerEvents = 'none';
+                    document.getElementById("cel3").style.pointerEvents = 'none';
+                    document.getElementById("cel4").style.pointerEvents = 'none';
+                    document.getElementById("cel5").style.pointerEvents = 'none';
+                    document.getElementById("cel6").style.pointerEvents = 'none';
+                    document.getElementById("cel7").style.pointerEvents = 'none';
+                    document.getElementById("cel8").style.pointerEvents = 'none';
+                    document.getElementById("cel9").style.pointerEvents = 'none';
+                }
+                else if (setsAreEqual(k1, n1)) {
+                    alert("O Win!!!");
+                    document.getElementById('winningAnnouncement').innerHTML = "Player O win!!!"
+                    document.getElementById("cel1").style.pointerEvents = 'none';
+                    document.getElementById("cel2").style.pointerEvents = 'none';
+                    document.getElementById("cel3").style.pointerEvents = 'none';
+                    document.getElementById("cel4").style.pointerEvents = 'none';
+                    document.getElementById("cel5").style.pointerEvents = 'none';
+                    document.getElementById("cel6").style.pointerEvents = 'none';
+                    document.getElementById("cel7").style.pointerEvents = 'none';
+                    document.getElementById("cel8").style.pointerEvents = 'none';
+                    document.getElementById("cel9").style.pointerEvents = 'none';
+                }
+                else if (setsAreEqual(k1, p1)) {
+                    alert("O Win!!!");
+                    document.getElementById('winningAnnouncement').innerHTML = "Player O win!!!"
+                    document.getElementById("cel1").style.pointerEvents = 'none';
+                    document.getElementById("cel2").style.pointerEvents = 'none';
+                    document.getElementById("cel3").style.pointerEvents = 'none';
+                    document.getElementById("cel4").style.pointerEvents = 'none';
+                    document.getElementById("cel5").style.pointerEvents = 'none';
+                    document.getElementById("cel6").style.pointerEvents = 'none';
+                    document.getElementById("cel7").style.pointerEvents = 'none';
+                    document.getElementById("cel8").style.pointerEvents = 'none';
+                    document.getElementById("cel9").style.pointerEvents = 'none';
+                }
+            });
+        }
+        function myFunc1() {
+            if (v == 'O') {
+                document.getElementById("box1").innerHTML = "X";
+                document.getElementById("cel1").style.pointerEvents = 'none';
+                v = 'X';
+                a['x'].push(1);
+                console.log("a['x']" + a['x']);
+                winnerX();
+
+            }
+            else if (v == 'X') {
+                document.getElementById("box1").innerHTML = "O";
+                document.getElementById("cel1").style.pointerEvents = 'none';
+
+                a['o'].push(1);
+                v = 'O';
+                console.log(a['o']);
+                winnerO();
+            }
+
+        }
+        function myFunc2() {
+            if (v == 'O') {
+                document.getElementById("box2").innerHTML = "X";
+                document.getElementById("cel2").style.pointerEvents = 'none';
+                a['x'].push(2);
+                v = 'X';
+                console.log("a['x']" + a['x']);
+                winnerX();
+
+            }
+            else if (v == 'X') {
+                document.getElementById("box2").innerHTML = "O";
+                document.getElementById("cel2").style.pointerEvents = 'none';
+                a['o'].push(2);
+                v = 'O';
+                console.log(a['o']);
+                winnerO();
+            }
+
+        }
+        function myFunc3() {
+            if (v == 'O') {
+                document.getElementById("box3").innerHTML = "X";
+                document.getElementById("cel3").style.pointerEvents = 'none';
+                a['x'].push(3);
+                v = 'X';
+                console.log("a['x']" + a['x']);
+                winnerO();
+            }
+            else if (v == 'X') {
+                document.getElementById("box3").innerHTML = "O";
+                document.getElementById("cel3").style.pointerEvents = 'none';
+                a['o'].push(3);
+                console.log(a['o']);
+                v = 'O';
+                winnerO();
+            }
+
+        }
+        function myFunc4() {
+            if (v == 'O') {
+                document.getElementById("box4").innerHTML = "X";
+                document.getElementById("cel4").style.pointerEvents = 'none';
+                a['x'].push(4);
+                v = 'X';
+                console.log("a['x']" + a['x']);
+                winnerX();
+            }
+            else if (v == 'X') {
+                document.getElementById("box4").innerHTML = "O";
+                document.getElementById("cel4").style.pointerEvents = 'none';
+                a['o'].push(4);
+                console.log(a['o']);
+                v = 'O';
+                winnerO();
+            }
+
+        }
+        function myFunc5() {
+            if (v == 'O') {
+                console.log(a['x']);
+
+                document.getElementById("box5").innerHTML = "X";
+                document.getElementById("cel5").style.pointerEvents = 'none';
+                a['x'].push(5);
+                v = 'X';
+                console.log("a['x']" + a['x']);
+                winnerO();
+            }
+            else if (v == 'X') {
+                document.getElementById("box5").innerHTML = "O";
+                document.getElementById("cel5").style.pointerEvents = 'none';
+                a['o'].push(5);
+                v = 'O';
+                console.log(a['o']);
+                winnerO();
+            }
+
+        }
+        function myFunc6() {
+            if (v == 'O') {
+                document.getElementById("box6").innerHTML = "X";
+                document.getElementById("cel6").style.pointerEvents = 'none';
+                a['x'].push(6);
+                v = 'X';
+                console.log("a['x']" + a['x']);
+                winnerX();
+            }
+            else if (v == 'X') {
+                document.getElementById("box6").innerHTML = "O";
+                document.getElementById("cel6").style.pointerEvents = 'none';
+                a['o'].push(6);
+                v = 'O';
+                console.log(a['o']);
+                winnerO();
+            }
+
+        }
+        function myFunc7() {
+            if (v == 'O') {
+                document.getElementById("box7").innerHTML = "X";
+                document.getElementById("cel7").style.pointerEvents = 'none';
+                a['x'].push(7);
+                v = 'X';
+                console.log("a['x']" + a['x']);
+                winnerX();
+            }
+            else if (v == 'X') {
+                document.getElementById("box7").innerHTML = "O";
+                document.getElementById("cel7").style.pointerEvents = 'none';
+                a['o'].push(7);
+                v = 'O';
+                console.log(a['o']);
+                winnerO();
+            }
+
+        }
+        function myFunc8() {
+            if (v == 'O') {
+                document.getElementById("box8").innerHTML = "X";
+                document.getElementById("cel8").style.pointerEvents = 'none';
+                a['x'].push(8);
+                v = 'X';
+                console.log("a['x']" + a['x']);
+                winnerX();
+            }
+            else if (v == 'X') {
+                document.getElementById("box8").innerHTML = "O";
+                document.getElementById("cel8").style.pointerEvents = 'none';
+                a['o'].push(8);
+                v = 'O';
+                console.log(a['o']);
+                winnerO();
+            }
+
+        }
+        function myFunc9() {
+            if (v == 'O') {
+                document.getElementById("box9").innerHTML = "X";
+                document.getElementById("cel9").style.pointerEvents = 'none';
+                a['x'].push(9);
+                v = 'X';
+                console.log("a['x']" + a['x']);
+                winnerX();
+            }
+            else if (v == 'X') {
+                document.getElementById("box9").innerHTML = "O";
+                document.getElementById("cel9").style.pointerEvents = 'none';
+                a['o'].push(9);
+                v = 'O';
+                console.log(a['o']);
+                winnerO();
+            }
+
+        }
+    </script>
+</body>
+</html>
